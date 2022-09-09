@@ -12,9 +12,6 @@ import generateUniqueId from "generate-unique-id";
 
 const app = express();
 
-app.use(express.json());
-app.use(express.static("public"));
-app.use(cors());
 Sentry.init({
   dsn: "https://2bec0b0d283546f68a6553cd728a4457@o1400339.ingest.sentry.io/6729212",
   integrations: [
@@ -30,9 +27,12 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
+app.use(Sentry.Handlers.requestHandler());
 // RequestHandler creates a separate execution context using domains, so that every
 // transaction/span/breadcrumb is attached to its own Hub instance
-app.use(Sentry.Handlers.requestHandler());
+app.use(express.json());
+app.use(express.static("public"));
+app.use(cors());
 // TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
