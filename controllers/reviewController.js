@@ -6,6 +6,7 @@ const Product = db.products;
 export const addReviewController = async (req, res) => {
   const { rating, description } = req.body;
   const { id } = req.params;
+  console.log(id);
   try {
     const product = await Review.create({
       product_id: parseInt(id),
