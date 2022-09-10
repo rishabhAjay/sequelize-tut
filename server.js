@@ -14,26 +14,35 @@ const app = express();
 
 Sentry.init({
   dsn: "https://2bec0b0d283546f68a6553cd728a4457@o1400339.ingest.sentry.io/6729212",
-  integrations: [
-    // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-    // enable Express.js middleware tracing
-    new Tracing.Integrations.Express({ app }),
-  ],
+  // integrations: [
+  //   // enable HTTP calls tracing
+  //   new Sentry.Integrations.Http({ tracing: true }),
+  //   // enable Express.js middleware tracing
+  //   new Tracing.Integrations.Express({ app }),
+  // ],
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
+  environment: "production",
+  release: "node-express@" + process.env.npm_package_version,
+  dist: "50",
+
+  autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
 });
 
-app.use(Sentry.Handlers.requestHandler());
 // RequestHandler creates a separate execution context using domains, so that every
 // transaction/span/breadcrumb is attached to its own Hub instance
 app.use(express.json());
 app.use(express.static("public"));
 app.use(cors());
+app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
+
+//define routes
+app.use("/api/v1/products", products);
+app.use("/api/v1/reviews", reviews);
 app.use(Sentry.Handlers.tracingHandler());
 
 // All controllers should live here
@@ -46,10 +55,6 @@ app.use(function onError(err, req, res, next) {
   res.statusCode = 500;
   res.end(res.sentry + "\n");
 });
-
-//define routes
-app.use("/api/v1/products", products);
-app.use("/api/v1/reviews", reviews);
 
 app.get("/debug-sentry", function mainHandler(req, res) {
   throw new Error("My first Sentry error!");
