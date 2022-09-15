@@ -14,17 +14,17 @@ const app = express();
 
 Sentry.init({
   dsn: "https://2bec0b0d283546f68a6553cd728a4457@o1400339.ingest.sentry.io/6729212",
-  // integrations: [
-  //   // enable HTTP calls tracing
-  //   new Sentry.Integrations.Http({ tracing: true }),
-  //   // enable Express.js middleware tracing
-  //   new Tracing.Integrations.Express({ app }),
-  // ],
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Tracing.Integrations.Express({ app }),
+  ],
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
-  environment: "production",
+  environment: "test-rishabh",
   release: "node-express@" + process.env.npm_package_version,
   dist: "50",
 
