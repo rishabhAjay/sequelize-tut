@@ -36,10 +36,10 @@ Sentry.init({
 
 // RequestHandler creates a separate execution context using domains, so that every
 // transaction/span/breadcrumb is attached to its own Hub instance
+app.use(Sentry.Handlers.requestHandler());
 app.use(express.json());
 app.use(express.static("public"));
 app.use(cors());
-app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
 
 //define routes
