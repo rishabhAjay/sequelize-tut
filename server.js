@@ -32,8 +32,8 @@ Sentry.init({
   environment: "test-rishabh",
   release:
     "node-express@" +
-    generateUniqueId({
-      length: 30,
+    VERSION().then((data) => {
+      return data;
     }),
   autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
