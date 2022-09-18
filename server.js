@@ -26,8 +26,6 @@ Sentry.init({
   // We recommend adjusting this value in production
   environment: "test-rishabh",
   release: "node-express@" + VERSION,
-  dist: "50",
-
   autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
 });
