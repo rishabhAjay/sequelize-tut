@@ -11,11 +11,14 @@ import generateUniqueId from "generate-unique-id";
 //create the connection
 
 const app = express();
-let sentryVersion;
-VERSION().then((data) => {
-  sentryVersion = data;
-  console.log("######################################", sentryVersion);
-});
+
+const sentryVersion = () => {
+  VERSION().then((data) => {
+    return data;
+  });
+};
+
+console.log("######################################", sentryVersion());
 Sentry.init({
   dsn: DSN,
   integrations: [
@@ -29,7 +32,7 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   environment: "test-rishabh",
-  release: "node-express@" + sentryVersion,
+  release: "node-express@1.1.1",
   autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
 });
