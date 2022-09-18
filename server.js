@@ -65,7 +65,7 @@ app.get("/debug-sentry", function mainHandler(req, res) {
 
 app.get("/", (req, res) => {
   const id = generateUniqueId({
-    length: 188,
+    length: 187,
   });
 
   res.json({ status: "welcome to sequelize backend", id });
