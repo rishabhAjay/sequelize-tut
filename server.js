@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import products from "./routes/product.js";
 import reviews from "./routes/review.js";
-import { PORT } from "./utils/constants.js";
+import { DSN, PORT, VERSION } from "./utils/constants.js";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
 import generateUniqueId from "generate-unique-id";
@@ -13,7 +13,7 @@ import generateUniqueId from "generate-unique-id";
 const app = express();
 
 Sentry.init({
-  dsn: "https://2bec0b0d283546f68a6553cd728a4457@o1400339.ingest.sentry.io/6729212",
+  dsn: DSN,
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
@@ -25,7 +25,7 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   environment: "test-rishabh",
-  release: "node-express@" + process.env.npm_package_version,
+  release: "node-express@" + VERSION,
   dist: "50",
 
   autoSessionTracking: false, // default: true
