@@ -2,13 +2,12 @@ import { config } from "../config/db-config.js";
 import Sequelize, { DataTypes } from "sequelize";
 import productModel from "./productModel.js";
 import reviewsModel from "./reviewsModel.js";
-
-console.log(config);
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
   host: config.HOST,
   dialect: config.dialect,
   operatorsAliases: false,
   pool: config.pool,
+  logging: false,
 });
 
 sequelize
