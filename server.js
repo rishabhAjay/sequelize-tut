@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import products from "./routes/product.js";
 import reviews from "./routes/review.js";
-import { DSN, PORT } from "./utils/constants.js";
+import { DSN, PORT, RELEASE } from "./utils/constants.js";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
 import generateUniqueId from "generate-unique-id";
@@ -25,11 +25,7 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   environment: "test-rishabh",
-  release:
-    "node-express@" +
-    generateUniqueId({
-      length: 26,
-    }),
+  release: "node-express@" + RELEASE,
   autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
 });
