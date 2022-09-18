@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 VERSION=`npx sentry-cli releases propose-version`
 # Workflow to create releases
 npx sentry-cli releases  --org student-qlx --project node-express new "$VERSION"
