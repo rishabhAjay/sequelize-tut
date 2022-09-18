@@ -4,18 +4,14 @@ import express from "express";
 import cors from "cors";
 import products from "./routes/product.js";
 import reviews from "./routes/review.js";
-import { DSN, PORT, VERSION } from "./utils/constants.js";
+import { DSN, PORT } from "./utils/constants.js";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import { UUIDV4 } from "sequelize";
+import generateUniqueId from "generate-unique-id";
 //create the connection
 
 const app = express();
-var sentryVersion = VERSION.then((data) => {
-  return data;
-});
 
-console.log("######################################", sentryVersion);
 Sentry.init({
   dsn: DSN,
   integrations: [
@@ -29,7 +25,11 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   environment: "test-rishabh",
-  release: "node-express@" + UUIDV4(),
+  release:
+    "node-express@" +
+    generateUniqueId({
+      length: 26,
+    }),
   autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
 });
