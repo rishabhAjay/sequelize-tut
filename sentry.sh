@@ -9,9 +9,13 @@ if [ "$2" == "" ]; then
     exit 1
 fi
 
-git push $1 $2
-VERSION=`npx sentry-cli releases propose-version`
+if git push $1 $2; then
+    VERSION=`npx sentry-cli releases propose-version`
 # Workflow to create releases
-npx sentry-cli releases new "$VERSION"
-npx sentry-cli releases set-commits "$VERSION" --auto
-npx sentry-cli releases finalize "$VERSION"
+    npx sentry-cli releases new "$VERSION"
+    npx sentry-cli releases set-commits "$VERSION" --auto
+    npx sentry-cli releases finalize "$VERSION"
+else
+    echo "pushing to remote repo failed"
+    exit 1
+fi
