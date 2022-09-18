@@ -7,7 +7,7 @@ export const HOST = process.env.HOST;
 export const USER = process.env.USER;
 export const PASSWORD = process.env.PASSWORD;
 export const DB = process.env.DB;
-export const DSN = process.env.DSN;
+export const DSN = process.env.SENTRY_DSN;
 
 export const VERSION = (cmd) => {
   return new Promise((resolve, reject) => {

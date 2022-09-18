@@ -1,5 +1,5 @@
-VERSION=`sentry-cli releases propose-version`
+VERSION=`npx sentry-cli releases propose-version`
 # Workflow to create releases
-sentry-cli releases new "$VERSION"
-sentry-cli releases set-commits "$VERSION" --auto
-sentry-cli releases finalize "$VERSION"
+npx sentry-cli --org student-qlx releases new "$VERSION"
+npx sentry-cli releases set-commits "$VERSION" --auto
+npx sentry-cli releases finalize "$VERSION"

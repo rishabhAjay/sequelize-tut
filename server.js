@@ -15,6 +15,7 @@ let sentryVersion;
 VERSION().then((data) => {
   sentryVersion = data;
 });
+console.log(sentryVersion);
 Sentry.init({
   dsn: DSN,
   integrations: [
