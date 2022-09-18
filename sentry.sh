@@ -12,6 +12,6 @@ fi
 git push $1 $2
 VERSION=`npx sentry-cli releases propose-version`
 # Workflow to create releases
-npx sentry-cli releases node-express new "$VERSION"
-npx sentry-cli releases node-express set-commits "$VERSION" --auto
-npx sentry-cli releases node-express finalize "$VERSION"
+npx sentry-cli releases new "$VERSION"
+npx sentry-cli releases set-commits "$VERSION" --auto
+npx sentry-cli releases finalize "$VERSION"
