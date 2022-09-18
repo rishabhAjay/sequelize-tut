@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "prepare": "git config --local core.hooksPath .githooks"
+    "postinstall": "node-git-hooks"
   },
   "keywords": [],
   "author": "",
