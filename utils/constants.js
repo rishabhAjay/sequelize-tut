@@ -8,18 +8,29 @@ export const USER = process.env.USER;
 export const PASSWORD = process.env.PASSWORD;
 export const DB = process.env.DB;
 export const DSN = process.env.DSN;
-let VERSION;
-exec("npx sentry-cli releases propose-version", (error, stdout, stderr) => {
-  if (error) {
-    console.log(`error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.log(`stderr: ${stderr}`);
-    return;
-  }
-  console.log(`stdout: ${stdout}`);
-  VERSION = stdout;
-});
-export { VERSION };
+
+export const VERSION = (cmd) => {
+  return new Promise((resolve, reject) => {
+    exec("npx sentry-cli releases propose-version", (error, stdout, stderr) => {
+      if (error) {
+        console.warn(error);
+        reject();
+      }
+      resolve(stdout);
+    });
+  });
+};
+// exec(, (error, stdout, stderr) => {
+//   if (error) {
+//     console.log(`error: ${error.message}`);
+//     return;
+//   }
+//   if (stderr) {
+//     console.log(`stderr: ${stderr}`);
+//     return;
+//   }
+//   console.log(`stdout: ${stdout}`);
+//   sentryVersion = stdout;
+// });
+
 export const dialect = "mysql";
