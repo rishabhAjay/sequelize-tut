@@ -7,12 +7,11 @@ import reviews from "./routes/review.js";
 import { DSN, PORT, VERSION } from "./utils/constants.js";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import generateUniqueId from "generate-unique-id";
+import { UUIDV4 } from "sequelize";
 //create the connection
 
 const app = express();
-
-const sentryVersion = VERSION().then((data) => {
+var sentryVersion = VERSION.then((data) => {
   return data;
 });
 
@@ -30,11 +29,7 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   environment: "test-rishabh",
-  release:
-    "node-express@" +
-    VERSION().then((data) => {
-      return data;
-    }),
+  release: "node-express@" + UUIDV4(),
   autoSessionTracking: false, // default: true
   tracesSampleRate: 1.0,
 });
