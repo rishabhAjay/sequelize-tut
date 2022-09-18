@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "hooks:pre-push": "./sentry.sh"
+    "hooks:pre-push": "sh sentry.sh"
   },
   "keywords": [],
   "author": "",
