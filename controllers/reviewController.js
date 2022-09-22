@@ -27,12 +27,23 @@ export const getAllReviewsController = async (req, res) => {
         {
           model: Review,
           as: "review",
+          attributes: [
+            [
+              db.Sequelize.fn("sum", db.Sequelize.col("rating")),
+              "sum_of_ratings",
+            ],
+          ],
         },
       ],
+
+      subQuery: false,
+      raw: true,
+      having: { "review.sum_of_ratings": "4" },
       where: { id },
     });
     res.status(200).json(reviews);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -47,7 +58,9 @@ export const getReviewsWithProductController = async (req, res) => {
           as: "product",
         },
       ],
-      where: { id },
+      where: { id, "$product.price$": 50 },
+
+      subQuery: false,
     });
     res.status(200).json(reviews);
   } catch (error) {
